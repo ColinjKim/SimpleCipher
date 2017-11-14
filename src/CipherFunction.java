@@ -7,7 +7,9 @@
 public class CipherFunction {
 
 	public static String decode(String s) {
-		
+		s = reverse(s);
+		s = totext(s);
+		s = totext(s);
 		return s;
 	}
 	/*
@@ -20,8 +22,8 @@ public class CipherFunction {
 	public static String encode(String s){
 		s = toascii(s);
 		s = toascii(s);
-		char[] c = reverse(s);
-		s = strFormat(c);
+		s = reverse(s);
+		s = addSpace(s);
 		return s;
 	}
 	/*
@@ -34,12 +36,25 @@ public class CipherFunction {
 	private static String toascii(String s) {
 		String temp="";
 		int len = s.length();
+		
 		for (int i =0; i< len; i++) {
 			int decAscii = (int) s.charAt(i);
 			String hex = Integer.toHexString(decAscii);
 			temp += hex;
 		}
 		s = temp;
+		return s;
+	}
+	
+	private static String totext(String s) {
+		String[] sarray = s.split("\\s+");
+		StringBuilder temp = new StringBuilder("");
+		
+		for (int i = 0;i < sarray.length; i+=2) {
+			temp.append((char) Integer.parseInt(sarray[i],16)+" ");
+		}
+		
+		s = temp.toString();
 		return s;
 	}
 	/*
@@ -49,7 +64,7 @@ public class CipherFunction {
 	 * 
 	 * @return String s reversed
 	 */
-	private static char[] reverse(String s) {
+	private static String reverse(String s) {
 		char[] c= s.toCharArray();
 		int start = 0, end = c.length-1;
 		char temp;
@@ -60,8 +75,8 @@ public class CipherFunction {
 	        end--;
 	        start++;
 	    }
-		
-		return c;
+		s = new String(c);
+		return s;
 	}
 	
 	/*
@@ -71,21 +86,49 @@ public class CipherFunction {
 	 * 
 	 * @return String s formatted with space
 	 */
-	private static String strFormat(char[] c) {
+	private static String addSpace(String s) {
+		char[] c= s.toCharArray();
 		int len = c.length;
 		int j = 0;
-		String s = "";
+		String temp = "";
 		for (int i = 0; i < len; i++) {
 			if (j==2) {
-				s+= " ";
-			    s+=c[i];
+				temp+= " ";
+				temp+=c[i];
 				j =1;
 			}
 			else {
-				s+= c[i];
+				temp+= c[i];
 				j+=1;
 			}
 		}
-		return s;
+		return s = temp;
 	}
+	/*
+	 * format String s by removing all spaces
+	 * 
+	 * @param String s
+	 * 
+	 * @return String s formatted without space
+	 */
+	
+	/*
+	private static String removeSpace(String s) {
+		char[] c= s.toCharArray();
+		int len = c.length;
+		int j = 0;
+		String temp = "";
+		for (int i = 0; i < len; i++) {
+			if (j==2) {
+				j =1;
+				
+			}
+			else {
+				temp+= c[i];
+				j+=1;
+			}
+		}
+		return s = temp;
+	}
+	*/
 }
