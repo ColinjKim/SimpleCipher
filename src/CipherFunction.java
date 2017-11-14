@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 /**
  * 
  * 
@@ -6,10 +8,15 @@
  */
 public class CipherFunction {
 
-	public static String decode(String s) {
+	public static String decode() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Decoding");
+		System.out.print("String to decode:");
+		String s = sc.nextLine();
 		s = reverse(s);
-		s = totext(s);
-		s = totext(s);
+		s = hextoascii(s);
+		s = addSpace(s);
+		s= hextoascii(s);
 		return s;
 	}
 	/*
@@ -19,11 +26,16 @@ public class CipherFunction {
 	 * 
 	 * @return encoded String s
 	 */
-	public static String encode(String s){
+	public static String encode(){
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Encoding");
+		System.out.print("String to encode:");
+		String s = sc.nextLine();
 		s = toascii(s);
 		s = toascii(s);
 		s = reverse(s);
 		s = addSpace(s);
+		
 		return s;
 	}
 	/*
@@ -46,17 +58,27 @@ public class CipherFunction {
 		return s;
 	}
 	
-	private static String totext(String s) {
-		String[] sarray = s.split("\\s+");
+	/*
+	 * String s to turning hex to ascii value
+	 * 
+	 * @param String s
+	 * 
+	 * @return String s formatted to ascii
+	 */
+	private static String hextoascii(String s) {
+		String[] sarray = s.split(" ");
 		StringBuilder temp = new StringBuilder("");
 		
-		for (int i = 0;i < sarray.length; i+=2) {
-			temp.append((char) Integer.parseInt(sarray[i],16)+" ");
+		for (int i = 0;i < sarray.length; i++) {
+			char dec = (char)Integer.parseInt(sarray[i],16);
+			temp.append(dec);
 		}
 		
 		s = temp.toString();
 		return s;
 	}
+	
+	
 	/*
 	 * reverses string s 
 	 * 
@@ -104,31 +126,6 @@ public class CipherFunction {
 		}
 		return s = temp;
 	}
-	/*
-	 * format String s by removing all spaces
-	 * 
-	 * @param String s
-	 * 
-	 * @return String s formatted without space
-	 */
+
 	
-	/*
-	private static String removeSpace(String s) {
-		char[] c= s.toCharArray();
-		int len = c.length;
-		int j = 0;
-		String temp = "";
-		for (int i = 0; i < len; i++) {
-			if (j==2) {
-				j =1;
-				
-			}
-			else {
-				temp+= c[i];
-				j+=1;
-			}
-		}
-		return s = temp;
-	}
-	*/
 }
