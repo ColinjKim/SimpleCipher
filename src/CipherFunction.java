@@ -17,6 +17,7 @@ public class CipherFunction {
 		s = hextoascii(s);
 		s = addSpace(s);
 		s= hextoascii(s);
+		sc.close();
 		return s;
 	}
 	/*
@@ -35,7 +36,7 @@ public class CipherFunction {
 		s = toascii(s);
 		s = reverse(s);
 		s = addSpace(s);
-		
+		sc.close();
 		return s;
 	}
 	/*
