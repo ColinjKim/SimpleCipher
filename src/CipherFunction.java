@@ -7,17 +7,20 @@ import java.util.Scanner;
  *
  */
 public class CipherFunction {
+	
+	public static String choice(String userChoice, String s) {
+		if (userChoice.equals("Encode"))
+			s = encode(s);
+		else
+			s = decode(s);
+		return s;
+	}
 
-	public static String decode() {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Decoding");
-		System.out.print("String to decode:");
-		String s = sc.nextLine();
+	private static String decode(String s) {
 		s = reverse(s);
 		s = hextoascii(s);
 		s = addSpace(s);
 		s= hextoascii(s);
-		sc.close();
 		return s;
 	}
 	/*
@@ -27,16 +30,11 @@ public class CipherFunction {
 	 * 
 	 * @return encoded String s
 	 */
-	public static String encode(){
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Encoding");
-		System.out.print("String to encode:");
-		String s = sc.nextLine();
+	private static String encode(String s){
 		s = toascii(s);
 		s = toascii(s);
 		s = reverse(s);
 		s = addSpace(s);
-		sc.close();
 		return s;
 	}
 	/*
